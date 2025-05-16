@@ -210,7 +210,7 @@
           </div>
           <h3>Pelapoaran</h3>
           <p>Pada web ini ditujukan difokuskan pada pelaporan tentang pembuangan sampah sembarangan, dimana sampah dibuang semabarangan</p>
-          <a href="{{ route('service_Details') }}" class="readmore stretched-link">Form Pelaporan <i class="bi bi-arrow-right"></i></a>
+          <a href="{{ route('pengaduan') }}" class="readmore stretched-link">Form Pelaporan <i class="bi bi-arrow-right"></i></a>
         </div>
       </div>
 

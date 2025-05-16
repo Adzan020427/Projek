@@ -25,6 +25,10 @@ Route::post('/regis',[regis::class,'regis'])->name('kirim');
 Route::get('/pengaduan',[SampahController::class, 'tampil_pengaduan'])->name('pengaduan');
 Route::post('/pengaduan',[SampahController::class, 'pengaduan'])->name('kirim_pengaduan');
 
+//admin
+Route::get('/admin', function(){
+    return view('admin.index_admin');
+});
 // Route::get('/pengaduan', function () {
 //     return view('pengaduan.form_pengaduan');
 // });

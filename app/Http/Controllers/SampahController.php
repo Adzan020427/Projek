@@ -51,7 +51,6 @@ class SampahController extends Controller
         return view('pengaduan.form_pengaduan');
     }      
 
-
     //login
     public function login(Request $request)
     {
@@ -63,13 +62,14 @@ class SampahController extends Controller
         $log = $request->only('email', 'password');
         
         if (Auth::attempt($log, $request->filled('ingat'))) {
-        $request->session()->regenerate();
-        return redirect()->intended('/home');
+            $request->session()->regenerate();
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin');
+            }else {
+                return redirect() ->route('home');
+            }
+
         }
-        // else 
-        // {
-        //     dd('Login gagal');
-        // }
 
         return back()->withErrors([
             'email' => 'Email atau kata sandi salah.',
