@@ -50,7 +50,7 @@
 | lokasi       | VARCHAR(255)               | lokasi sampah yang dilaporkan            |
 | jenis        | VARCHAR(255)               | Jenis sampah yang dilaporkan             |
 | deskripsi    | TEXT                       | Deskripsi pelaporan                      |
-| created_at   | DATETIME                   | Tanggal produk ditambahkan               |
+| created_at   | DATETIME                   | Tanggal pelaporan di lakukan              |
 
 ---
 
