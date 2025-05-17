@@ -49,7 +49,11 @@ class SampahController extends Controller
     public function tampil_pengaduan()
     {
         return view('pengaduan.form_pengaduan');
-    }      
+    }
+    public function tampil_admin()
+    {
+        return view('admin.index_admin');
+    }           
 
     //login
     public function login(Request $request)
@@ -64,8 +68,14 @@ class SampahController extends Controller
         if (Auth::attempt($log, $request->filled('ingat'))) {
             $request->session()->regenerate();
             if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin');
-            }else {
+
+                return redirect('/admin');
+            }
+            elseif (Auth::user()->role === 'petugas') {
+                
+                return redirect()->route('petugas');
+            }
+            else {
                 return redirect() ->route('home');
             }
 

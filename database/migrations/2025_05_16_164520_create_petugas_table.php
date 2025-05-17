@@ -11,15 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('regis',function(Blueprint $table){
+        Schema::create('petugas', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->enum('role',['admin','user', 'petugas'])->default('user');
-            $table->rememberToken();
+            $table->unsignedBigInteger('sampah_id');
+            $table->string('nama_lengkap');
+            $table->string('nomor_hp',20)->nullable();
+            $table->string('wilayah_tugas')->nullable();
             $table->timestamps();
+
+            $table->foreign('sampah_id')->references('id')->on('regis')->onDelete('cascade');
         });
+
+        
     }
 
     /**
@@ -27,7 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('regis');
-        
+        Schema::dropIfExists('petugas');
     }
 };

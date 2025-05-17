@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PetugasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SampahController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\regis;
 
 Route::get('/', [SampahController::class, 'awal'])->name('awal');
@@ -25,10 +28,20 @@ Route::post('/regis',[regis::class,'regis'])->name('kirim');
 Route::get('/pengaduan',[SampahController::class, 'tampil_pengaduan'])->name('pengaduan');
 Route::post('/pengaduan',[SampahController::class, 'pengaduan'])->name('kirim_pengaduan');
 
+//petugas
+Route::get('/petugas',[PetugasController::class, 'tampil_petugas'])->name('petugas');
+Route::post('/petugas/{id}/tindakan',[PetugasController::class, 'tindak_lanjut'])->name('tindak_lanjut');
+
 //admin
-Route::get('/admin', function(){
-    return view('admin.index_admin');
-});
-// Route::get('/pengaduan', function () {
-//     return view('pengaduan.form_pengaduan');
-// });
+Route::get('/admin', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::post('/admin/user/{id}/update-role', [AdminController::class, 'updateRole'])->name('admin.user.updateRole');
+Route::delete('/admin/user/{id}', [AdminController::class, 'destroyUser'])->name('admin.user.destroy');
+// Route::get('/admin/petugas', [PetugasController::class, 'index'])->name('admin.petugas.index');
+Route::post('/admin/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store');
+Route::get('/admin/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit');
+Route::put('/admin/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update');
+Route::delete('/admin/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.destroy');
+Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+Route::post('/user/pengaduan', [UserController::class, 'kirimPengaduan'])->name('user.pengaduan.kirim');
+
+

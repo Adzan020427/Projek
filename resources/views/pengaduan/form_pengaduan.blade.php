@@ -2,7 +2,7 @@
 @extends('layout.master')
 
 @section('isi')
-<div class="container mt-5">
+<div class="container" style="margin-top: 100px; padding-top: 20px;">
     <h2 class="mb-4">Form Pengaduan Sampah</h2>
 
     @if (session('success'))
