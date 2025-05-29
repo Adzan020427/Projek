@@ -21,8 +21,8 @@ Route::post('/login',[SampahController::class,'login'])->name('kirimdata');
 Route::post('/logout',[SampahController::class,'logout'])->name('logout');
 
 //regis
-Route::get('/regis',[regis::class,'tampil_regis'])->name('regis');
-Route::post('/regis',[regis::class,'regis'])->name('kirim');
+Route::get('/register',[regis::class,'tampil_regis'])->name('regis');
+Route::post('/register',[regis::class,'regis'])->name('kirim_data');
 
 //pengaduan
 Route::get('/pengaduan',[SampahController::class, 'tampil_pengaduan'])->name('pengaduan');
@@ -43,5 +43,4 @@ Route::put('/admin/petugas/{id}', [PetugasController::class, 'update'])->name('a
 Route::delete('/admin/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.destroy');
 Route::get('/user/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 Route::post('/user/pengaduan', [UserController::class, 'kirimPengaduan'])->name('user.pengaduan.kirim');
-
 

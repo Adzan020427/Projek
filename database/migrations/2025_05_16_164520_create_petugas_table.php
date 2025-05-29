@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('nomor_hp',20)->nullable();
             $table->string('wilayah_tugas')->nullable();
             $table->timestamps();
-
             $table->foreign('sampah_id')->references('id')->on('regis')->onDelete('cascade');
         });
 

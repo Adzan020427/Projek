@@ -1,6 +1,7 @@
 @extends('layout.master')
 
 @section('isi')
+
 <main class="main">
 
 
@@ -70,4 +71,3 @@
 
 
 @endsection
-  

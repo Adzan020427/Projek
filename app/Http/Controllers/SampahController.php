@@ -15,6 +15,7 @@ class SampahController extends Controller
     {
         return view('format.hal_awal');
     }
+    
     public function index()
     {
         return view('format.index_minimal_final');
@@ -85,7 +86,8 @@ class SampahController extends Controller
             'email' => 'Email atau kata sandi salah.',
         ])->onlyInput('email');
 
-    }    
+    }
+        
     public function logout(Request $request)
     {
 
