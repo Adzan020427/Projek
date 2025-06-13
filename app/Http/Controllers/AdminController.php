@@ -17,7 +17,7 @@ class AdminController extends Controller
         $users = sampah::all();
         $petugas = Petugas::with('user')->get();
         $pengaduan = Pengaduan::all();
-
+        
         return view('admin.index_admin', compact('users','petugas','pengaduan'));
     }
     

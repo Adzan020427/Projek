@@ -12,7 +12,7 @@ class sampah extends Authenticatable
 {
     use Notifiable;
 
-    protected $table = 'regis'; // atau 'users' jika memang tabel user
+    protected $table = 'regis';
     protected $fillable = [
         'name',
         'email',
@@ -25,7 +25,5 @@ class sampah extends Authenticatable
         'remember_token',
     ];
 
-    public function petugas(){
-        return $this->hasOne(Petugas::class, 'sampah_id');
-    }
+
 }

@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\sampah;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -21,6 +20,7 @@ class Petugas extends Model
     ];
 
     public function user(){
-        return $this->belongsTo(sampah::class);
+        return $this->belongsTo(User::class, 'sampah_id', 'id');
     }
+
 }

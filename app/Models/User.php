@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -33,6 +34,8 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    
+
 
     /**
      * Get the attributes that should be cast.
@@ -46,4 +49,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function petugas(){
+        return $this->hasOne(Petugas::class, 'sampah_id');
+    }
+    
 }

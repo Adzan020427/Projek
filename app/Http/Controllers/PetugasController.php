@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
 use App\Models\Petugas;
-use App\Models\sampah;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,13 +17,20 @@ class PetugasController extends Controller
     public function tampil_petugas()
     {
         if (Auth::check() && Auth::user()->role === 'petugas') {
-            $wilayah = Auth::user()->petugas->wilayah_tugas;
+            $user = Auth::user();
+            $petugas = Petugas::where('sampah_id', $user->id)->first();
+            $wilayah = $petugas->wilayah_tugas ?? null; // Mengambil kolom wilayah_tugas dari model Petugas
+
+            if (!$wilayah) {
+                return abort(403, 'Wilayah tugas tidak ditemukan atau belum diatur.');
+            }
+
             $pengaduan = Pengaduan::where('lokasi', $wilayah)->get();
 
             return view('format.petugas', compact('pengaduan'));
         }
 
-        return abort(403, 'akses ditolak');
+        return abort(403, 'Akses ditolak.');
     }
 
     /**
@@ -55,18 +62,13 @@ class PetugasController extends Controller
         return redirect()->back()->with('success', 'Status pengaduan diperbaharui');
     }
 
-    /**
-     * Tampilkan form edit data petugas
-     */
     public function edit($id)
     {
         $petugas = Petugas::findOrFail($id);
         return view('admin.edit_petugas', compact('petugas'));
     }
 
-    /**
-     * Proses update data petugas
-     */
+
     public function updatePetugas(Request $request, $id)
     {
         $request->validate([
@@ -84,9 +86,7 @@ class PetugasController extends Controller
         return redirect()->back()->with('success', 'Data petugas berhasil diperbarui.');
     }
 
-    /**
-     * Hapus data petugas
-     */
+
     public function destroy($id)
     {
         $petugas = Petugas::findOrFail($id);
@@ -114,13 +114,14 @@ class PetugasController extends Controller
             return redirect()->route('login')->with('error', 'Anda harus login sebagai user terlebih dahulu');
         }
 
-        $akun = sampah::create([
+        $akun = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 'petugas' // pastikan kolom 'role' ada
         ]);
-        Petugas::create([
+
+        $akun = Petugas::create([
             'sampah_id' => Auth::user()->id,
             'nama_lengkap' => $request->nama_lengkap,
             'nomor_hp' => $request->nomor_hp,

@@ -1,3 +1,44 @@
+<style>
+.card {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.card-header {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1rem 1.5rem;
+}
+.table {
+    margin-bottom: 0;
+    background: #fff;
+}
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #f8f9fa;
+}
+.form-select-sm {
+    min-width: 100px;
+}
+.btn-danger {
+    transition: background 0.2s;
+}
+.btn-danger:hover {
+    background: #c82333;
+}
+@media (max-width: 768px) {
+    .table th, .table td {
+        font-size: 0.95rem;
+        padding: 0.5rem;
+    }
+    .card-header h5 {
+        font-size: 1.1rem;
+    }
+}
+</style>
+
 <div class="card my-4">
     <div class="card-header bg-success text-white">
         <h5 class="mb-0">Data User</h5>

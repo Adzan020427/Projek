@@ -1,10 +1,80 @@
+<style>
+.card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    border: none;
+}
+
+.card-header {
+    border-radius: 12px 12px 0 0;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.form-control {
+    border-radius: 8px;
+    transition: border-color 0.2s;
+}
+
+.form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.1rem rgba(255,193,7,.25);
+}
+
+.btn-success, .btn-warning, .btn-danger {
+    border-radius: 6px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+.btn-warning:hover {
+    background: #e0a800;
+}
+
+.btn-danger:hover {
+    background: #c82333;
+}
+
+.table {
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.table th, .table td {
+    vertical-align: middle !important;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .card, .card-header, .card-body {
+        padding: 1rem;
+    }
+    .table {
+        font-size: 0.95rem;
+    }
+    .btn {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.7rem;
+    }
+}
+</style>
+
 <div class="card my-4">
     <div class="card-header bg-warning text-dark">
         <h5 class="mb-0">Form Tambah Petugas</h5>
     </div>
     <div class="card-body">
         <!-- Form Tambah Petugas -->
-        <form action="{{ route('admin.petugas.store') }}" method="POST">
+        <form id="form-tambah-petugas" action="{{ route('admin.petugas.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
@@ -64,7 +134,7 @@
                                 <a href="{{ route('admin.petugas.edit', $ptg->id) }}" class="btn btn-sm btn-warning">Edit</a>
                                 <form action="{{ route('admin.petugas.destroy', $ptg->id) }}" method="POST" class="d-inline">
                                     @csrf @method('DELETE')
-                                    <button class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus petugas ini?')">Hapus</button>
+                                    <button class="btn btn-sm btn-danger btn-delete-petugas" type="submit">Hapus</button>
                                 </form>
                             </td>
                         </tr>
@@ -76,3 +146,58 @@
         @endif
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Validasi Form Tambah Petugas
+  const formTambahPetugas = document.getElementById('form-tambah-petugas');
+  formTambahPetugas.addEventListener('submit', function(e) {
+    const inputs = formTambahPetugas.querySelectorAll('input');
+    let valid = true;
+
+    inputs.forEach(input => {
+      if (input.value.trim() === '') {
+        valid = false;
+        input.classList.add('is-invalid');
+      } else {
+        input.classList.remove('is-invalid');
+      }
+
+      // Validasi nomor HP hanya angka
+      if (input.name === 'nomor_hp' && !/^\d+$/.test(input.value)) {
+        valid = false;
+        input.classList.add('is-invalid');
+        alert('Nomor HP hanya boleh berisi angka.');
+      }
+    });
+
+    if (!valid) {
+      e.preventDefault();
+      alert('Harap isi semua kolom dengan benar.');
+    }
+  });
+
+  // Konfirmasi Penghapusan
+  const deleteButtons = document.querySelectorAll('.btn-delete-petugas');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      const confirmed = confirm('Yakin ingin menghapus petugas ini?');
+      if (!confirmed) {
+        e.preventDefault();
+      }
+    });
+  });
+
+  // Highlight Baris Tabel
+  const tableRows = document.querySelectorAll('.table tbody tr');
+  tableRows.forEach(row => {
+    row.addEventListener('mouseover', function() {
+      row.style.backgroundColor = '#f8f9fa';
+    });
+    row.addEventListener('mouseout', function() {
+      row.style.backgroundColor = '';
+    });
+  });
+});
+</script>
+
