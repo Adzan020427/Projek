@@ -7,19 +7,18 @@ use App\Models\sampah;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Routing\Controller as Controller;
 
 class SampahController extends Controller
 {
+
     //tampilan file ke view user
     public function awal()
     {
         return view('format.hal_awal');
     }
     
-    public function index()
-    {
-        return view('format.index_minimal_final');
-    }  
+
 
     public function blog()
     {
@@ -77,7 +76,7 @@ class SampahController extends Controller
                 return redirect()->route('petugas');
             }
             else {
-                return redirect() ->route('home');
+                return redirect()->route('awal');
             }
 
         }

@@ -6,12 +6,18 @@ use App\Models\Pengaduan;
 use App\Models\Petugas;
 use App\Models\sampah;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as Controller;
 
 class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+    }
     public function index()
     {
         $users = sampah::all();
@@ -35,7 +41,7 @@ class AdminController extends Controller
         $user = sampah::findOrFail($id);
         $user->delete();
 
-        return redirect()->back()->with('succes','data user berhasil dihapus');
+        return redirect()->back()->with('success', 'user berhasil dihapus');
 
     }
 

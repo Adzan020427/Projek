@@ -5,11 +5,12 @@ use App\Http\Controllers\SampahController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PetugasController;
+use App\Http\Controllers\halaman_Awal;
 use App\Http\Controllers\regis;
 
 // Public routes
 Route::get('/', [SampahController::class, 'awal'])->name('awal');
-Route::get('/home', [SampahController::class, 'index'])->name('home');
+Route::get('/home', [halaman_Awal::class, 'index'])->name('home');
 Route::get('/blog', [SampahController::class, 'blog'])->name('blog');
 Route::get('/blog_detail', [SampahController::class, 'blog_detail'])->name('blog_detail');
 Route::get('/portofolio', [SampahController::class, 'portofolio_details'])->name('portofolio');
@@ -39,7 +40,7 @@ Route::post('/admin/user/{id}/update-role', [AdminController::class, 'updateRole
 Route::delete('/admin/user/{id}', [AdminController::class, 'destroy'])->name('admin.user.destroy');
 Route::post('/admin/petugas', [PetugasController::class, 'store'])->name('admin.petugas.store');
 Route::get('/admin/petugas/{id}/edit', [PetugasController::class, 'edit'])->name('admin.petugas.edit');
-Route::put('/admin/petugas/{id}', [PetugasController::class, 'update'])->name('admin.petugas.update');
+Route::put('/admin/petugas/{id}', [PetugasController::class, 'updatePetugas'])->name('admin.petugas.update');
 Route::delete('/admin/petugas/{id}', [PetugasController::class, 'destroy'])->name('admin.petugas.destroy');
 
 // User routes

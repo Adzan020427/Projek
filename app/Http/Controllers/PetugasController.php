@@ -53,7 +53,7 @@ class PetugasController extends Controller
     /**
      * Update status pengaduan (opsional tambahan)
      */
-    public function update($id)
+    public function updatePengaduan($id)
     {
         $pengaduan = Pengaduan::findOrFail($id);
         $pengaduan->status = 'selesai';
@@ -69,21 +69,29 @@ class PetugasController extends Controller
     }
 
 
-    public function updatePetugas(Request $request, $id)
+    public function updatePetugas(Request $request, $id) 
     {
+        // Validasi input
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
             'nomor_hp' => 'required|string|max:20',
             'wilayah_tugas' => 'required|string|max:255',
+            // Tambahkan validasi role jika ikut diubah
+            // 'role' => 'required|in:admin,petugas',
         ]);
 
+        // Ambil data petugas dan update
         $petugas = Petugas::findOrFail($id);
-        $petugas->nama_lengkap = $request->nama_lengkap;
-        $petugas->nomor_hp = $request->nomor_hp;
-        $petugas->wilayah_tugas = $request->wilayah_tugas;
-        $petugas->save();
+        $petugas->update([
+            'nama_lengkap' => $request->nama_lengkap,
+            'nomor_hp' => $request->nomor_hp,
+            'wilayah_tugas' => $request->wilayah_tugas,
+            // 'role' => $request->role,
+        ]);
 
-        return redirect()->back()->with('success', 'Data petugas berhasil diperbarui.');
+        // Redirect ke halaman daftar petugas atau halaman sukses
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'Data petugas berhasil diperbarui.');
     }
 
 
@@ -92,7 +100,7 @@ class PetugasController extends Controller
         $petugas = Petugas::findOrFail($id);
         $petugas->delete();
 
-        return redirect()->back()->with('success', 'Petugas berhasil dihapus.');
+        return redirect()->route('admin.dashboard')->with('success', 'Petugas berhasil dihapus.');
     }
 
     /**

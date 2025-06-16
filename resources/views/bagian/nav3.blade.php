@@ -26,12 +26,17 @@
         </a>
 
         <nav id="navmenu" class="navmenu">
-          <!-- <ul>
-            <li><a href="{{ route('regis') }}" >Sing-in<br></a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="{{ route('login') }}">Login</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul> -->
+          <ul>
+            <!-- <li><a href="{{ route('regis') }}" >Sing-in<br></a></li> -->
+            <!-- <li><a href="#about">About</a></li> -->
+            <li>
+              <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                @csrf
+                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none;">Log-out</button>
+              </form>
+            </li>
+            <!-- <li><a href="#contact">Contact</a></li> -->
+          </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 

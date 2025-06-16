@@ -30,6 +30,12 @@
             <li><a href="{{ route('home') }}" class="active">Home<br></a></li>
             <!-- <li><a href="#about">About</a></li> -->
             <li><a href="{{ route('service_Details') }}">Services</a></li>
+            <li>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none;">Log-out</button>
+              </form>
+            </li>
             <li><a href="#contact">Contact</a></li>
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
